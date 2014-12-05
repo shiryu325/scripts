@@ -1,3 +1,7 @@
+#!/usr/bin/python
+# 
+# TODO - Convert perl downloader into python and integrate into fetch loop
+
 import os.path
 import feedparser
 import time
@@ -13,11 +17,7 @@ days = 2
 maxage = (60 * 60 * 24) * days 
 now = time.gmtime() 
 
-# TEST URL
-#d = feedparser.parse('http://feeds.feedburner.com/theadamcarollapodcast') 
-
 # Check Configs & File existences
-
 if os.path.isfile(perl) and os.path.isfile(downloader) and os.path.isfile(feedslist):
 	print "Configuration OK...\n" ;
 else:
@@ -37,9 +37,7 @@ for f in file:
 		age = calendar.timegm(now) - calendar.timegm(published)
 
 		if  (age < maxage) :
-			#print (published  , "-" , d.entries[i].published) 
 			print d.entries[i].published , "-\t" , "[", d.entries[i].title ,"]" ,"\t" , "published" , age / 86400 , "days ago"
-			#print d.entries[i].enclosures , "\n" , d.entries[i].enclosures[0].href , "\n"
 			call([perl , downloader, d.entries[i].enclosures[0].href]) 
 
 file.close() 
