@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 #
-# TODO - Support for https, non-trust certed
-# Add 's' matching on URL, if site is https, append --no-check-certificate to wget options
+# TODO
 
 use strict ;
 
@@ -14,11 +13,12 @@ my $DIR = "/home/voltron/pod" ;
 my $LOG = "/home/voltron/Prog/log.txt"  ;
 
 # Code
-(my $file = $url) =~ s/https?:\/\/(.*)\/(.*)(.mp3)(.*)/$2$3/ ;
+(my $file = $url) =~ s/(https?):\/\/(.*)\/(.*)(.mp3)(.*)/$2$3/ ;
 
 unless ( -e "$DIR/$file" ) {
 	print "*** Downloading $file...\n";
 	my @FETCH = ($WGET, $url, "-O", "$DIR/$file" , "--append-output=$LOG" , "--progress=bar" ) ;
+	push (@FETCH,"--no-check-certificate")  if ( lc($1) eq "https" ) ;
 	system(@FETCH) ;
 }
 else {

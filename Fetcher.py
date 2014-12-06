@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # 
-# TODO - Convert perl downloader into python and integrate into fetch loop
+# TODO - Convert perl downloader into python and integrate into fetch loop, call wget from python
+# - Read file feed URLs into array to allow closure of file handle as soon as possible, loop through feeds array fer fetching
 
 import os.path
 import feedparser
