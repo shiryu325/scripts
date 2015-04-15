@@ -29,7 +29,13 @@ File.open(feedfile).each do |line|
           file.write open(item.enclosure.url).read
         end
       end
+      # Delete file if size is zero
+      if File.zero?("#{poddir}/#{filename}")
+         File.delete("#{poddir}/#{filename}")
+      end
+
     end
+
   end
   puts "==========================================="
 end
